@@ -1,15 +1,26 @@
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 /**
+ * Test Class
+ *
+ * Designed to ensure the File Reader was acting as expected
  * Created by baird on 18/01/2016.
  */
 public class test {
 
     public static void main(String[] args){
-        fileReader fr = new fileReader("inputfile.txt");
-        List<Integer> output = fr.readAll();
+        LogicalMemory logicalMemory = new LogicalMemory();
+
+        try {
+           fileParser fr = new fileParser("inputfile.txt");
+
         while(fr.hasNext()){
-            System.out.println(fr.readNext());
+            logicalMemory.addAddress(fr.readNext());
+        }
+        System.out.println(logicalMemory);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
