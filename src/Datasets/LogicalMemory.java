@@ -1,3 +1,5 @@
+package Datasets;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,11 @@ import java.util.List;
  */
 public class LogicalMemory {
     private List<LogicalAddress> logicalMemory;
+    int count;
 
     public LogicalMemory(){
+
+        count = 0;
         logicalMemory = new ArrayList<>();
     }
 
@@ -20,6 +25,12 @@ public class LogicalMemory {
         logicalMemory.add(logicalAddress);
     }
 
+    public void addAddresses(List<Integer> addresses){
+        for (Integer address: addresses) {
+            addAddress(address);
+        }
+    }
+
     @Override
     public String toString(){
         String output = "";
@@ -29,16 +40,15 @@ public class LogicalMemory {
         return output;
     }
 
-    public class LogicalAddress{
-        int pageNumber, offset;
-        public LogicalAddress(int pageNo, int offset){
-            this.pageNumber = pageNo;
-            this.offset = offset;
-        }
-
-        @Override
-        public String toString(){
-            return "P: " + pageNumber + ", O: " + offset;
-        }
+    public List<LogicalAddress> getAll(){
+        return logicalMemory;
     }
+
+    public LogicalAddress getNext(){
+        if(count<logicalMemory.size()) {
+            return logicalMemory.get(count);
+        }
+        return null;
+    }
+
 }

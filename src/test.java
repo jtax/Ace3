@@ -1,5 +1,7 @@
+import Datasets.LogicalMemory;
+import Datasets.PageTable;
+
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 /**
  * Test Class
@@ -10,17 +12,14 @@ import java.util.Arrays;
 public class test {
 
     public static void main(String[] args){
-        LogicalMemory logicalMemory = new LogicalMemory();
-
+        VirtualMemoryManager vmm = new VirtualMemoryManager();
         try {
-           fileParser fr = new fileParser("inputfile.txt");
-
-        while(fr.hasNext()){
-            logicalMemory.addAddress(fr.readNext());
-        }
-        System.out.println(logicalMemory);
+            vmm.initialiseLogicalMemory("testinput.txt");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("The File Given To The Virtual Memory Manager Does Not Exist");
+            System.exit(1);
         }
+        vmm.translateAddresses();
+
     }
 }
